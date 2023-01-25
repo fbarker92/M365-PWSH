@@ -1,6 +1,6 @@
 ﻿#Gathering initial information needed to run the duplicate checks.
-$Email = "info@oaknuggins.co.uk"
-$Credential = Get-Credential
+$Email = "email@domain.com"
+#$Credential = Get-Credential
 #NOTE: If attempting to add a new alias is what throws an error, delete the # in front of $NewAlias and fill in the affected email as needed.
 #$NewAlias= "NEW_ALIAS@DOMAIN.COM"
 
@@ -10,8 +10,8 @@ $Credential = Get-Credential
 #Installing Exchange Online and Msol PowerShell Modules
 Install-Module MSOnline -Force
 Import-Module MSOnline
-Connect-MsolService -Credential $credential
-$Session1 = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $credential -Authentication Basic -AllowRedirection
+Connect-MsolService -Credential #$credential
+$Session1 = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -AllowRedirection
 Import-PSSession $Session1
 Start-Transcript -Path ("$env:USERPROFILE\Desktop\DuplicateCheckOutput.txt")
 Get-Date
