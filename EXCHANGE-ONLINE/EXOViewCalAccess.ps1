@@ -1,1 +1,1 @@
-Get-Mailbox | % { Get-MailboxFolderPermission (($_.PrimarySmtpAddress.ToString())+”:\Calendar”) -User '*DISPLAY NAME*' -ErrorAction SilentlyContinue} | select Identity,User,AccessRights
+Get-Mailbox -ResultSize Unlimited | ForEach-Object {Get-MailboxFolderPermission -Identity ((($_.PrimarySmtpAddress).ToString()) + ":\Calendar") -User ** -ErrorAction SilentlyContinue} | Select Identity,User,AccessRights
