@@ -20,5 +20,16 @@ ForEach ($Domain in $Domains) {
 $DMARCMbxs = Get-Mailbox -Filter {PrimarySmtpAddress -like "DMARC*"}
 ForEach ($DMARCMbx in $DMARCMbxs) {Set-Mailbox -Identity $DMARCMbx -HiddenFromAddressListsEnabled $true}
 
-##TODO export the DMARC DNS records to eaily 
+Write-Host "DKIM CNAME records..."
+ForEach ($Domain in $Domains) {
+    New-DkimSigningConfig -DomainName $Domain -Enabled $true -ErrorAction SilentlyContinue
+    Get-DkimSigningConfig -Identity $Domain  -ErrorAction SilentlyContinue | Select Selector1CNAME,Selector2CNAME
+    Write-host ""
+}
+
+Write-Host "DMARC CNAME Records..."
+ForEach ($Domain in $Domains) {
+    Write-Host "_dmarc.$Domain" " - " "v=DMARC1; p=quarantine; pct=100; rua=mailto:DMARCAggregate@$Domain; ruf=mailto:DMARCForensics@$Domain"
+    Write-Host ""
+}
 
