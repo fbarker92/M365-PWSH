@@ -27,7 +27,7 @@ ForEach ($Domain in $Domains) {
     Write-host ""
 }
 
-Write-Host "DMARC CNAME Records..."
+Write-Host "DMARC TXT Records..."
 ForEach ($Domain in $Domains) {
     Write-Host "_dmarc.$Domain" " - " "v=DMARC1; p=quarantine; pct=100; rua=mailto:DMARCAggregate@$Domain; ruf=mailto:DMARCForensics@$Domain"
     Write-Host ""
